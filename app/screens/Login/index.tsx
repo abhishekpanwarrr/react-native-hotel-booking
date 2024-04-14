@@ -1,4 +1,5 @@
 import {
+  Alert,
   StyleSheet,
   Text,
   TextInput,
@@ -7,7 +8,10 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {COLORS} from '../../constants/constant';
-import {useForm, Controller, SubmitErrorHandler} from 'react-hook-form';
+import {useForm, Controller} from 'react-hook-form';
+import {storeUserInLocalStorage} from '../../hooks/useStorage';
+import {useMutation} from '@tanstack/react-query';
+import {handleLogin} from '../../utils/util';
 
 type FormValues = {
   email: string;
@@ -21,10 +25,18 @@ const Login = ({navigation}: any) => {
     reset,
     formState: {errors},
   } = useForm<FormValues>();
-  const onSubmit = (data: any) => {
-    console.log(data);
-    reset();
-  };
+
+  const mutation = useMutation({
+    mutationFn: data => handleLogin(data),
+    onSuccess: data => {
+      if (data?.status === 200) {
+        storeUserInLocalStorage(data?.user);
+        return reset();
+      }
+    },
+  });
+
+  const onSubmit = async (data: any) => await mutation.mutate(data);
 
   return (
     <SafeAreaView style={{flex: 1, paddingHorizontal: 5}}>

@@ -4,10 +4,14 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {COLORS} from '../../constants/constant';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Controller, useForm} from 'react-hook-form';
+import {storeUserInLocalStorage} from '../../hooks/useStorage';
+import {useMutation} from '@tanstack/react-query';
+import {handleRegister} from '../../utils/util';
 
 const Register = ({navigation}: any) => {
   const {
@@ -16,10 +20,22 @@ const Register = ({navigation}: any) => {
     reset,
     formState: {errors},
   } = useForm();
-  const onSubmit = (data: any) => {
-    console.log(data);
-    reset();
-  };
+
+  const mutation = useMutation({
+    mutationFn: data => handleRegister(data),
+    onSuccess: data => {
+      console.log('🚀 ~ Register ~ data:', data);
+      if (data?.status === 201) {
+        Alert.alert('Please login now.');
+        return reset();
+      }
+      if (data.error) {
+        reset();
+        return Alert.alert('Something went wrong.Try again later');
+      }
+    },
+  });
+  const onSubmit = async (data: any) => mutation.mutate(data);
 
   return (
     <SafeAreaView style={{flex: 1, paddingHorizontal: 5}}>
@@ -112,6 +128,29 @@ const Register = ({navigation}: any) => {
           />
           {/* @ts-ignore */}
           <Text style={styles.error}>{errors?.password?.message}</Text>
+          <Controller
+            control={control}
+            render={({field: {onChange, onBlur, value}}) => (
+              <TextInput
+                placeholderTextColor={COLORS.blue}
+                style={styles.passwordInput}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                placeholder="Address"
+                value={value}
+              />
+            )}
+            rules={{
+              required: 'Address is required!',
+              minLength: {
+                value: 8,
+                message: 'Address must be min 8 character',
+              },
+            }}
+            name="address"
+          />
+          {/* @ts-ignore */}
+          <Text style={styles.error}>{errors?.address?.message}</Text>
           <TouchableOpacity
             style={styles.loginButton}
             onPress={handleSubmit(onSubmit)}>

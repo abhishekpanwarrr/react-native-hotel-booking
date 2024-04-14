@@ -1,11 +1,13 @@
-import { Text, View } from "react-native";
+import {SafeAreaView, Text, View} from 'react-native';
 
 interface ProfileProps {}
 
 const Profile = ({}: ProfileProps) => {
-  return <View>
-    <Text>Profile</Text>
-  </View>;
+  return (
+    <SafeAreaView>
+      <Text>Profile</Text>
+    </SafeAreaView>
+  );
 };
 
 export default Profile;

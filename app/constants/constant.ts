@@ -4,3 +4,4 @@ export const COLORS = {
     darkBlue: "#0a0434",
     white: "#fff"
 }
+export const BACKEND_URL = "https://hotel-backend-taupe.vercel.app/api/v1/"
