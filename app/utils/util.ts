@@ -22,8 +22,23 @@ const handleRegister = async (data: any) => {
     const responseData = await response.json();
     return responseData;
 }
+const handleFetchHotel = async () => {
+    try {
+        const response = await fetch(`${BACKEND_URL}/hotel`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            }
+        })
+        return await response.json()
+    } catch (error) {
+        throw new Error("Something went wrong")
+    }
+}
 
 export {
     handleLogin,
-    handleRegister
+    handleRegister,
+    handleFetchHotel
 }

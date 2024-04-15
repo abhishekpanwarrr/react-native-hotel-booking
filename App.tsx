@@ -20,9 +20,7 @@ function Dashboard() {
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
-          console.log('🚀 ~ Dashboard ~ focused:', focused);
           let iconName;
-
           if (route.name === 'Home') {
             iconName = 'home-outline';
           } else if (route.name === 'MyTrips') {
@@ -31,6 +29,8 @@ function Dashboard() {
             iconName = 'bookmark-outline';
           } else if (route.name === 'Profile') {
             iconName = 'person-outline';
+          } else {
+            iconName = 'ios-alert';
           }
           iconName = iconName || 'home-outline';
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -52,7 +52,9 @@ export default function App() {
   useEffect(() => {
     (async () => {
       const user = await getUserFromLocalStorage('userInfo');
-      setUserName(user?.fullName);
+      if (user) {
+        setUserName(user?.fullName);
+      }
     })();
   }, []);
   return (
@@ -62,13 +64,14 @@ export default function App() {
           screenOptions={{
             headerShown: false,
           }}>
-          {!userName && (
+          {userName ? (
+            <Stack.Screen name="Dashboard" component={Dashboard} />
+          ) : (
             <>
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="Register" component={Register} />
             </>
           )}
-          <Stack.Screen name="Dashboard" component={Dashboard} />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>
