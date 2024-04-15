@@ -16,6 +16,7 @@ const PopularHotelList = () => {
     queryKey: ['popularHotels'],
     queryFn: handleFetchHotel,
   });
+  
   if (isLoading) {
     return <ActivityIndicator size={'large'} color={COLORS.darkBlue} />;
   }

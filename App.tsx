@@ -11,6 +11,8 @@ import {getUserFromLocalStorage} from './app/hooks/useStorage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Favourites from './app/screens/Favourties';
 import Profile from './app/screens/Profile';
+import {TouchableOpacity} from 'react-native';
+import {COLORS} from './app/constants/constant';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -39,8 +41,25 @@ function Dashboard() {
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',
       })}>
+      <Tab.Screen
+        name="MyTrips"
+        options={{
+          headerShown: true,
+          title: 'My orders',
+          headerTitleAlign: 'left',
+          headerRight: () => (
+            <TouchableOpacity style={{marginRight: 15}}>
+              <Ionicons
+                name="newspaper-outline"
+                size={25}
+                color={COLORS.yellow}
+              />
+            </TouchableOpacity>
+          ),
+        }}
+        component={MyTrips}
+      />
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="MyTrips" component={MyTrips} />
       <Tab.Screen name="Favourite" component={Favourites} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>

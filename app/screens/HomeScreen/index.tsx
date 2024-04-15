@@ -1,6 +1,7 @@
 import {
   Image,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -19,7 +20,7 @@ const HomeScreen = () => {
       style={{
         flex: 1,
       }}>
-      <View
+      <ScrollView
         style={{
           flex: 1,
           paddingHorizontal: 10,
@@ -61,9 +62,31 @@ const HomeScreen = () => {
             value={search}
           />
         </View>
-        {/* Popular Hotel list */} 
+        {/* Popular hotels */}
+        <Text
+          style={{
+            marginVertical: 10,
+            fontSize: 16,
+            fontWeight: '700',
+            textDecorationLine: 'underline',
+            textDecorationStyle: 'double',
+          }}>
+          Popular Hotel list{' '}
+        </Text>
         <PopularHotelList />
-      </View>
+        {/* Newly added hotels */}
+        <Text
+          style={{
+            marginVertical: 10,
+            fontSize: 16,
+            fontWeight: '700',
+            textDecorationLine: 'underline',
+            textDecorationStyle: 'double',
+          }}>
+          New added hotel{' '}
+        </Text>
+        <PopularHotelList />
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -85,7 +108,7 @@ const styles = StyleSheet.create({
     color: COLORS.darkBlue,
     height: 40,
     paddingLeft: 1,
-    width: '90%',
+    width: 90,
   },
   userDetails: {
     display: 'flex',
