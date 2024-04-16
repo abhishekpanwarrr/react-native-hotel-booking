@@ -10,26 +10,25 @@ export const USER_PROFILE_ITEMS = [
     {
         id: 1,
         title: "Personal  Info",
-        icon: "person-outline"
+        icon: "person-outline",
+        route:"Personal"
     },
     {
         id: 2,
         title: "Privacy & Sharing",
-        icon: "shield-checkmark-outline"
+        icon: "shield-checkmark-outline",
+        route:"Privacy"
     },
     {
         id: 3,
         title: "Notification",
-        icon: "notifications-outline"
+        icon: "notifications-outline",
+        route:"Notification"
     },
     {
         id: 4,
-        title: "Review",
-        icon: "alert-circle-outline"
-    },
-    {
-        id: 5,
         title: "Logout",
-        icon: "log-out-outline"
+        icon: "log-out-outline",
+        route:"Logout"
     },
 ]

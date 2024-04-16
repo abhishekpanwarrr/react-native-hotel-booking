@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react';
 import {COLORS, USER_PROFILE_ITEMS} from '../../constants/constant';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-interface User {
+export interface User {
   __v: number;
   _id: string;
   address: string;
@@ -15,7 +15,7 @@ interface User {
   updatedAt: string;
 }
 
-const Profile = () => {
+const Profile = ({navigation}: any) => {
   const [user, setUser] = useState<User>({} as User);
 
   useEffect(() => {
@@ -56,6 +56,7 @@ const Profile = () => {
       {USER_PROFILE_ITEMS?.map(profile => (
         <TouchableOpacity
           key={profile.id}
+          onPress={() => navigation.navigate(profile?.route)}
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -76,10 +77,14 @@ const Profile = () => {
               alignItems: 'center',
               gap: 10,
             }}>
-            <Ionicons name={profile.icon} size={30} color={COLORS.darkBlue} />
+            <Ionicons
+              name={profile.icon}
+              size={30}
+              color={profile.title === 'Logout' ? 'red' : COLORS.darkBlue}
+            />
             <Text
               style={{
-                color: COLORS.darkBlue,
+                color: profile.title === 'Logout' ? 'red' : COLORS.darkBlue,
                 fontWeight: '600',
               }}>
               {profile.title}

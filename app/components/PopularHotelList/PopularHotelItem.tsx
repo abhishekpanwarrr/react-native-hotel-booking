@@ -1,9 +1,11 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {COLORS} from '../../constants/constant';
+import {useNavigation} from '@react-navigation/native';
 
 const PopularHotelItem = ({hotel}: any) => {
+  const navigation = useNavigation();
   const calculateAverageRating = () => {
     let sum = 0;
     let totalCount = 0;
@@ -18,9 +20,11 @@ const PopularHotelItem = ({hotel}: any) => {
     return averageRating.toFixed(2);
   };
   const averageRating = calculateAverageRating();
-  
+
   return (
-    <View
+    <TouchableOpacity
+    // @ts-ignore
+      onPress={() => navigation.navigate('Room',{hotel})}
       style={{
         width: 200,
         height: 260,
@@ -73,7 +77,7 @@ const PopularHotelItem = ({hotel}: any) => {
           {averageRating}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
