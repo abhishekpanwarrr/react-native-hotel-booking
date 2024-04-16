@@ -103,13 +103,13 @@ export default function App() {
                   presentation: 'modal',
                 }}
               />
-              <Stack.Screen
+              {/* <Stack.Screen
                 name="Logout"
                 options={{
                   presentation: 'modal',
                 }}
                 component={Logout}
-              />
+              /> */}
             </>
           ) : (
             <>

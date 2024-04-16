@@ -9,7 +9,10 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {COLORS} from '../../constants/constant';
 import {useForm, Controller} from 'react-hook-form';
-import {storeUserInLocalStorage} from '../../hooks/useStorage';
+import {
+  getUserFromLocalStorage,
+  storeUserInLocalStorage,
+} from '../../hooks/useStorage';
 import {useMutation} from '@tanstack/react-query';
 import {handleLogin} from '../../utils/util';
 
@@ -31,7 +34,7 @@ const Login = ({navigation}: any) => {
     onSuccess: data => {
       if (data?.status === 200) {
         storeUserInLocalStorage(data?.user);
-        return reset();
+        return navigation.navigate('Dashboard');
       }
     },
   });

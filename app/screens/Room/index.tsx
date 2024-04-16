@@ -4,16 +4,25 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import React, {useState} from 'react';
 import {COLORS} from '../../constants/constant';
-import DateTimePicker from 'react-native-ui-datepicker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import dayjs from 'dayjs';
 
 const Room = ({route}: any) => {
   const {hotel} = route.params;
-  const [date, setDate] = useState(dayjs());
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+  const [startPicker, setStartPicker] = useState(false);
+  const [endPicker, setEndPicker] = useState(false);
+  const changedStartDate = dayjs(startDate).format('DD/MM/YYYY');
+  const changedEndDate = dayjs(endDate).format('DD/MM/YYYY');
+  const days = dayjs(endDate).diff(startDate);
+  const roomforDays = days / (24 * 60 * 60 * 1000);
+
   return (
     <SafeAreaView
       style={{
@@ -57,11 +66,64 @@ const Room = ({route}: any) => {
         </View>
 
         {/* Booking */}
-        <View>
-          <DateTimePicker
-            mode="range"
-            date={date}
-            onChange={params => setDate(params.date)}
+        <View
+          style={{
+            marginVertical: 10,
+            flexDirection: 'row',
+            gap: 5,
+          }}>
+          <TouchableOpacity
+            style={{
+              backgroundColor: COLORS.yellow,
+              height: 30,
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '50%',
+            }}
+            onPress={() => setStartPicker(true)}>
+            <Text
+              style={{
+                fontWeight: '700',
+                color: 'white',
+              }}>
+              {changedStartDate || 'From'}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: COLORS.darkBlue,
+              height: 30,
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '50%',
+            }}
+            onPress={() => setEndPicker(true)}>
+            <Text
+              style={{
+                fontWeight: '700',
+                color: 'white',
+              }}>
+              {changedEndDate || 'To'}
+            </Text>
+          </TouchableOpacity>
+
+          <DateTimePickerModal
+            isVisible={startPicker}
+            mode="date"
+            onConfirm={(date: any) => {
+              setStartDate(date);
+              setStartPicker(false);
+            }}
+            onCancel={() => setStartPicker(false)}
+          />
+          <DateTimePickerModal
+            isVisible={endPicker}
+            mode="date"
+            onConfirm={(date: any) => {
+              setEndDate(date);
+              setEndPicker(false);
+            }}
+            onCancel={() => setEndPicker(false)}
           />
         </View>
       </ScrollView>
