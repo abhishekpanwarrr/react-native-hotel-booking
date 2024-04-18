@@ -58,18 +58,18 @@ const HomeScreen = () => {
             placeholderTextColor={COLORS.blue}
             style={styles.searchInput}
             onChangeText={value => setSearch(value)}
-            placeholder="Enter password"
+            placeholder="Search..."
             value={search}
           />
         </View>
         {/* Popular hotels */}
         <Text
           style={{
-            marginVertical: 10,
-            fontSize: 16,
+            marginVertical: 15,
+            fontSize: 18,
             fontWeight: '700',
             textDecorationLine: 'underline',
-            textDecorationStyle: 'double',
+            textDecorationStyle: 'solid',
           }}>
           Popular Hotel list{' '}
         </Text>
@@ -77,8 +77,8 @@ const HomeScreen = () => {
         {/* Newly added hotels */}
         <Text
           style={{
-            marginVertical: 10,
-            fontSize: 16,
+            marginVertical: 15,
+            fontSize: 18,
             fontWeight: '700',
             textDecorationLine: 'underline',
             textDecorationStyle: 'double',

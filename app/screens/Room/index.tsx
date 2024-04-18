@@ -58,7 +58,7 @@ const Room = ({route}: any) => {
       return Alert.alert('End date cannot be before start date');
     }
   };
-  
+
   return (
     <SafeAreaView
       style={{
@@ -78,11 +78,32 @@ const Room = ({route}: any) => {
             flexDirection: 'row',
             gap: 3,
             top: '65%',
-            left: '100%',
+            left: '110%',
           }}>
           <Ionicons name="star-half-outline" size={15} color={'white'} />
           <Text style={{color: 'white'}}>{averageRating}</Text>
         </View>
+        <TouchableOpacity
+          style={{
+            left: '85%',
+            top: 0,
+            width: 50,
+            height: 50,
+            backgroundColor: '#ddd',
+            alignItems: 'center',
+            display: 'flex',
+            justifyContent: 'center',
+            borderRadius: 30,
+          }}
+          onPress={() => {}}>
+          <Icon
+            name="heart"
+            size={25}
+            style={{
+              color: '#F6995C',
+            }}
+          />
+        </TouchableOpacity>
       </ImageBackground>
       <ScrollView
         style={{
@@ -105,6 +126,41 @@ const Room = ({route}: any) => {
             {hotel?.hotelName}
           </Text>
         </View>
+        {/* Timiing */}
+        <View
+          style={{
+            backgroundColor: '#fafafa',
+            marginTop: 20,
+            marginBottom: 10,
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+            gap: 5,
+            borderRadius: 10,
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <Text style={{fontWeight: '700', fontSize: 16}}>CheckIn: </Text>
+            <Text style={{fontWeight: '400'}}>{hotel?.timing[0]?.checkIn}</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <Text style={{fontWeight: '700', fontSize: 16}}>CheckOut: </Text>
+            <Text
+              style={{
+                fontWeight: '400',
+              }}>
+              {hotel?.timing[0]?.checkOut}
+            </Text>
+          </View>
+        </View>
         {/* Amenities */}
         <View
           style={{
@@ -123,7 +179,6 @@ const Room = ({route}: any) => {
               fontWeight: '700',
               textDecorationLine: 'underline',
               marginBottom: 10,
-              textAlign: 'center',
             }}>
             Ameneties
           </Text>
@@ -184,80 +239,88 @@ const Room = ({route}: any) => {
           </Text>
           <Text>{hotel?.description}</Text>
         </View>
-
-        {/* Timiing */}
+        {/* Hotel Policies */}
         <View
           style={{
             backgroundColor: '#fafafa',
-            marginVertical: 20,
             paddingHorizontal: 5,
-            gap: 5,
+            paddingVertical: 5,
+            borderRadius: 8,
+            marginTop: 30,
           }}>
-          <View
+          <Text
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              fontSize: 18,
+              fontWeight: '600',
+              marginTop: 20,
+              marginBottom: 10,
+              textDecorationLine: 'underline',
             }}>
-            <Text style={{fontWeight: '600'}}>CheckIn: </Text>
-            <Text style={{fontWeight: '400'}}>{hotel?.timing[0]?.checkIn}</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <Text style={{fontWeight: '600'}}>CheckOut: </Text>
-            <Text
-              style={{
-                fontWeight: '400',
-              }}>
-              {hotel?.timing[0]?.checkOut}
+            Hotel Policies:
+          </Text>
+          {hotel?.policies.map((policy: string, index: number) => (
+            <Text key={index} style={{marginVertical: 3}}>
+              📌 {policy}
             </Text>
-          </View>
+          ))}
         </View>
         {/* Booking */}
         <View
           style={{
             marginVertical: 10,
             flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
             gap: 5,
           }}>
-          <TouchableOpacity
+          <View
             style={{
-              backgroundColor: COLORS.yellow,
-              height: 30,
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '50%',
-            }}
-            onPress={() => setStartPicker(true)}>
-            <Text
-              style={{
-                fontWeight: '700',
-                color: 'white',
-              }}>
-              {changedStartDate || 'From'}
+              flex: 1,
+            }}>
+            <Text style={{fontWeight: '600', marginVertical: 3}}>
+              Check In Date
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+            <TouchableOpacity
+              style={{
+                backgroundColor: COLORS.darkBlue,
+                height: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              onPress={() => setStartPicker(true)}>
+              <Text
+                style={{
+                  fontWeight: '700',
+                  color: 'white',
+                }}>
+                {changedStartDate || 'From'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View
             style={{
-              backgroundColor: COLORS.darkBlue,
-              height: 30,
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '50%',
-            }}
-            onPress={() => setEndPicker(true)}>
-            <Text
-              style={{
-                fontWeight: '700',
-                color: 'white',
-              }}>
-              {changedEndDate || 'To'}
+              flex: 1,
+            }}>
+            <Text style={{fontWeight: '600', marginVertical: 3}}>
+              Check Out Date:
             </Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: COLORS.darkBlue,
+                height: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              onPress={() => setEndPicker(true)}>
+              <Text
+                style={{
+                  fontWeight: '700',
+                  color: 'white',
+                }}>
+                {changedEndDate || 'To'}
+              </Text>
+            </TouchableOpacity>
+          </View>
 
           <DateTimePickerModal
             isVisible={startPicker}

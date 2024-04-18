@@ -52,7 +52,7 @@ function Dashboard() {
         name="MyTrips"
         options={{
           headerShown: true,
-          title: 'My orders',
+          title: 'My bookings',
           headerTitleAlign: 'left',
           headerRight: () => (
             <TouchableOpacity style={{marginRight: 15}}>
