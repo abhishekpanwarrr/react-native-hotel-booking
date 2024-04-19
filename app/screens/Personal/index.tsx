@@ -4,8 +4,9 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {User} from '../Profile';
 import {getUserFromLocalStorage} from '../../hooks/useStorage';
 import {COLORS} from '../../constants/constant';
+import BackButtonContainer from '../../components/BackButtonContainer';
 
-const Personal = () => {
+const Personal = ({navigation}: any) => {
   const [user, setUser] = useState<User>({} as User);
 
   useEffect(() => {
@@ -21,6 +22,7 @@ const Personal = () => {
       style={{
         flex: 1,
       }}>
+      <BackButtonContainer navigation={navigation} />
       <View
         style={{
           marginTop: 30,

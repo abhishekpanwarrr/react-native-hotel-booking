@@ -1,8 +1,16 @@
-import {SafeAreaView, StyleSheet, Switch, Text, View} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Switch,
+  Text,
+  View,
+  Platform,
+} from 'react-native';
 import React, {useState} from 'react';
 import {COLORS} from '../../constants/constant';
+import BackButtonContainer from '../../components/BackButtonContainer';
 
-const Notification = () => {
+const Notification = ({navigation}: any) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (
@@ -11,6 +19,9 @@ const Notification = () => {
         style={{
           padding: 10,
         }}>
+        {Platform.OS === 'android' && (
+          <BackButtonContainer navigation={navigation} />
+        )}
         <Text
           style={{
             fontSize: 18,

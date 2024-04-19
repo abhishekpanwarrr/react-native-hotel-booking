@@ -1,4 +1,11 @@
-import {Image, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {getUserFromLocalStorage} from '../../hooks/useStorage';
 import {useEffect, useState} from 'react';
 import {COLORS, USER_PROFILE_ITEMS} from '../../constants/constant';
@@ -32,13 +39,7 @@ const Profile = ({navigation}: any) => {
       style={{
         flex: 1,
       }}>
-      <View
-        style={{
-          marginTop: 30,
-          marginBottom: 20,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+      <View style={styles.imageWrapper}>
         <Image
           source={{
             uri: 'https://images.pexels.com/photos/1906157/pexels-photo-1906157.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
@@ -57,36 +58,18 @@ const Profile = ({navigation}: any) => {
         <TouchableOpacity
           key={profile.id}
           onPress={() => navigation.navigate(profile?.route)}
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginBottom: 10,
-            marginTop: 10,
-            borderLeftWidth: 0,
-            borderRightWidth: 0,
-            borderTopWidth: 0,
-            borderBottomWidth: 1,
-            borderColor: '#ddd',
-            paddingBottom: 5,
-            paddingHorizontal: 10,
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: 10,
-            }}>
+          style={styles.profileItemButton}>
+          <View style={styles.profileItemButtonIconTextWrapper}>
             <Ionicons
               name={profile.icon}
               size={30}
               color={profile.title === 'Logout' ? 'red' : COLORS.darkBlue}
             />
             <Text
-              style={{
-                color: profile.title === 'Logout' ? 'red' : COLORS.darkBlue,
-                fontWeight: '600',
-              }}>
+              style={[
+                styles.buttonText,
+                {color: profile.title === 'Logout' ? 'red' : COLORS.darkBlue},
+              ]}>
               {profile.title}
             </Text>
           </View>
@@ -104,3 +87,34 @@ const Profile = ({navigation}: any) => {
 };
 
 export default Profile;
+
+const styles = StyleSheet.create({
+  imageWrapper: {
+    marginTop: 30,
+    marginBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontWeight: '600',
+  },
+  profileItemButtonIconTextWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 10,
+  },
+  profileItemButton: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+    marginTop: 10,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+    borderTopWidth: 0,
+    borderBottomWidth: 1,
+    borderColor: '#ddd',
+    paddingBottom: 5,
+    paddingHorizontal: 10,
+  },
+});
